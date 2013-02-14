@@ -60,7 +60,7 @@ class SiriProxy::Plugin::Videro < SiriProxy::Plugin
     say "Player " + player + " spielt den vorherigen Beitrag."
   end
   
-  def videro_play(player, programm, kanal)
+  def videro_play(player, kanal, programm)
     say "Auf dem Player '"+player+"' wird nun '"+programm+"' aus dem Kanal '"+kanal+"' gestartet."
     path = URI::encode("/playlist/playByPath/[\""+kanal+"\",\""+ programm+ "\"]")
     http = Net::HTTP.new(player, 8000)
@@ -85,7 +85,7 @@ class SiriProxy::Plugin::Videro < SiriProxy::Plugin
       when "Zurück"
         videro_previous(ask_for_playername)
       when "Abspielen"
-        videro_play(ask_for_playername,ask_for_channel, ask_for_programm)
+        videro_play(ask_for_playername, ask_for_channel, ask_for_programm)
       when "Abbruch"
       else
         say "Ich habe das Kommando leider nicht verstanden, gültige Kommandos sind: Abspielen, Stopp, Weiter, Zurück und Abbruch."
@@ -95,4 +95,3 @@ class SiriProxy::Plugin::Videro < SiriProxy::Plugin
     end
     request_completed
   end
-end
